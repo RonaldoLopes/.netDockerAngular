@@ -3,3 +3,6 @@ dotnet new webapi -n SmartSchool.WebAPI
 dotnet run
 lauchsettingJSON
 dotnet watch run -> fica escutando alterações sem precisar reiniciar
+ctrl + shitp + p -> nuget
+// se necessario dotnet tool install --global dotnet-ef
+//criar banco -> dotnet ef -h para help

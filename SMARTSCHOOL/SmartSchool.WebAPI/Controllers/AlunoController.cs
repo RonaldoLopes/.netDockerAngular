@@ -30,6 +30,7 @@ namespace SmartSchool.WebAPI.Controllers
                 Sobrenome = "Pereira",
                 Telefone = "555555"
             },
+            
         };
         public AlunoController(){}
         // GET: api/<AlunoController>
