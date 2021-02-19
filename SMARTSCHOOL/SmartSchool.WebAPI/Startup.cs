@@ -30,6 +30,30 @@ namespace SmartSchool.WebAPI
             services.AddDbContext<SmartContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
+
+            /*
+            *instâncias do controller(objetos)
+            *services.AddSingleton<IRepository, Repository>();
+            *Quando padrão singletown, ele cria a requisição na primeira vez que  é instanciado
+            *e toda vez que é necessário, ele requisita esta instância
+            *AddSingleton: -> Cria uma única instância do serviço quando é solicitado pela primeira vez
+            *                 e reutiliza essa mesma instância em todos os locais em que esse serviço é necessário.
+            */
+            /*
+            *services.AddTransient<IRepository, Repository>();
+            *AddTransient: -> Sempre gerará uma nova instância para cada item encontrado que possua
+            *                 tal dependência, ou seja, se houver 5 dependências serão 5 instâncias diferentes
+            */
+
+            /*
+            *services.AddScoped<IRepository, Repository>();
+            *AddScoped: -> Essa é diferente da Transient que garante que em uma requisição seja criada
+            *              uma instância de uma classe onde se houver outras dependências, seja utilizada
+            *              essa única instância pra todas, renovando somente nas requisições subsequentes,
+            *              mas, mantendo essa obrigatoriedade
+            */
+            services.AddScoped<IRepository, Repository>();
+            
             services.AddControllers();
         }
 
