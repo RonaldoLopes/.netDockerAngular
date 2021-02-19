@@ -6,3 +6,6 @@ dotnet watch run -> fica escutando alterações sem precisar reiniciar
 ctrl + shitp + p -> nuget
 // se necessario dotnet tool install --global dotnet-ef
 //criar banco -> dotnet ef -h para help
+ dotnet ef migrations add init
+ dotnet ef database update
+ dotnet watch run
