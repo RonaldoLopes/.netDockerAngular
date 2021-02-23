@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using SmartSchool.WebAPI.Data;
+using AutoMapper;
+using System;
 
 namespace SmartSchool.WebAPI
 {
@@ -57,6 +52,9 @@ namespace SmartSchool.WebAPI
             services.AddControllers().AddNewtonsoftJson(
                                 opt => opt.SerializerSettings.ReferenceLoopHandling  = 
                                     Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
+            //necessario para o automapper procurar quem herda de profile
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
