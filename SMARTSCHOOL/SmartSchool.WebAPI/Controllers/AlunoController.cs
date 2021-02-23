@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
 using SmartSchool.WebAPI.Dto;
@@ -15,35 +16,21 @@ namespace SmartSchool.WebAPI.Controllers
     public class AlunoController : ControllerBase
     {
         public readonly IRepository _repo;
+        private readonly IMapper _mapper;
 
-        public AlunoController(IRepository repo)
+        public AlunoController(IRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         // GET: api/<AlunoController>
         [HttpGet]
         public IActionResult Get()
         {
-            var alunos = _repo.GetAllAlunos(true);
-            var alunosRetorno = new List<AlunoDto>();
+            var alunos = _repo.GetAllAlunos(true);  
 
-            foreach(var aluno in alunos)
-            {
-                alunosRetorno.Add(new AlunoDto()
-                {
-                    Id = aluno.Id,
-                    Matricula = aluno.Matricula,
-                    Nome = $"{aluno.Nome} {aluno.Sobrenome}",
-                    Telefone = aluno.Telefone,
-                    //DataNasc = aluno.DataNasc,
-                    DataIni = aluno.DataIni,
-                    Ativo = aluno.Ativo
-
-                });
-            }
-
-            return Ok(alunosRetorno);
+            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
         // GET: api/aluno/1
@@ -55,7 +42,10 @@ namespace SmartSchool.WebAPI.Controllers
             var aluno = _repo.GetAllAlunoByID(id, false);
 
             if (aluno == null) return BadRequest("Nada encontrado");
-            return Ok(aluno);
+
+            var alunoDto = _mapper.Map<AlunoDto>(aluno);
+
+            return Ok(alunoDto);
         }
         // GET: api/aluno/nome
         //com queryString : http://localhost:5000/api/aluno/byName?nome=Ronaldo&sobrenome=Alves
@@ -69,41 +59,47 @@ namespace SmartSchool.WebAPI.Controllers
         // }
 
         [HttpPost]
-        public IActionResult Post(Aluno aluno)
+        public IActionResult Post(AlunoRegistrarDto model)
         {
+            var aluno = _mapper.Map<Aluno>(model);
+
             _repo.Add(aluno);
            if( _repo.SaveChanges())
            {
-               return Ok(aluno);
+               return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
            }
             return BadRequest("Aluno não cadastrado");
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Aluno aluno)
+        public IActionResult Put(int id, AlunoRegistrarDto model)
         {
-            var alu = _repo.GetAllAlunoByID(id);
-            if (alu == null) return BadRequest("Aluno não encontrado");
+            var aluno = _repo.GetAllAlunoByID(id);
+            if (aluno == null) return BadRequest("Aluno não encontrado");
+
+            _mapper.Map(model, aluno);
 
             _repo.Update(aluno);
            if( _repo.SaveChanges())
            {
-               return Ok(aluno);
+               return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
            }
             return BadRequest("Aluno não Atualizado");
         }
 
         //O método de requisição HTTP PATCH aplica modificações parciais a um recurso.
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, Aluno aluno)
+        public IActionResult Patch(int id, AlunoRegistrarDto model)
         {
-            var alu = _repo.GetAllAlunoByID(id);
-            if (alu == null) return BadRequest("Aluno não encontrado");
+            var aluno = _repo.GetAllAlunoByID(id);
+            if (aluno == null) return BadRequest("Aluno não encontrado");
+
+            _mapper.Map(model, aluno);
 
              _repo.Update(aluno);
            if( _repo.SaveChanges())
            {
-               return Ok(aluno);
+               return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
            }
             return BadRequest("Aluno não Atualizado");
         }

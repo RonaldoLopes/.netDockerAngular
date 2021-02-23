@@ -26,5 +26,6 @@ namespace SmartSchool.WebAPI.Models
         public DateTime? DataFim { get; set; } = null;
         public bool Ativo { get; set; } = true;
         public IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
+
     }
 }
