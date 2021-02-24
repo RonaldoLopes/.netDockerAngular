@@ -129,7 +129,7 @@ namespace SmartSchool.WebAPI.Data
 
             query = query.AsNoTracking()
                          .OrderBy(a => a.Id)
-                         .Where(professor => professorId == professorId);
+                         .Where(professor => professor.Id == professorId);
 
             return query.FirstOrDefault();
         }
