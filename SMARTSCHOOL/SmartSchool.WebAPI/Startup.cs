@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartSchool.WebAPI.Data;
-using AutoMapper;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace SmartSchool.WebAPI
 {
@@ -48,17 +51,70 @@ namespace SmartSchool.WebAPI
             *              mas, mantendo essa obrigatoriedade
             */
             services.AddScoped<IRepository, Repository>();
-            
-            services.AddControllers().AddNewtonsoftJson(
-                                opt => opt.SerializerSettings.ReferenceLoopHandling  = 
-                                    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
             //necessario para o automapper procurar quem herda de profile
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //versionamento API
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            })
+             .AddApiVersioning(options =>
+             {
+                 options.DefaultApiVersion = new ApiVersion(1, 0);
+                 options.AssumeDefaultVersionWhenUnspecified = true;
+                 options.ReportApiVersions = true;
+             });
+
+            services.AddControllers().AddNewtonsoftJson(
+                                opt => opt.SerializerSettings.ReferenceLoopHandling =
+                                    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+
+            var apiProviderDescription = services.BuildServiceProvider()
+                                                 .GetService<IApiVersionDescriptionProvider>();
+
+            //swagger documentação API
+            services.AddSwaggerGen(options =>
+            {
+
+                foreach (var description in apiProviderDescription.ApiVersionDescriptions)
+                {
+                        options.SwaggerDoc(
+                            description.GroupName,
+                            new Microsoft.OpenApi.Models.OpenApiInfo()
+                            {
+                                Title = "SmartSchool API",
+                                Version = description.ApiVersion.ToString(),
+                                TermsOfService = new Uri("http://SeusTermosDeUso.com"),
+                                Description = "A descrição dessa API",
+                                License = new Microsoft.OpenApi.Models.OpenApiLicense
+                                {
+                                    Name = "API License",
+                                    Url = new Uri("http://mit.com")
+                                },
+                                Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                                {
+                                    Name = "Ronaldo Cassiano Lopes Alves",
+                                    Email = "ronaldo@risc.ind.br",
+                                    Url = new Uri("http://risc.ind.br")
+                                }
+                            }
+                    );
+                }
+
+
+
+                //Necessário para incluir o XML na documentação
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+                options.IncludeXmlComments(xmlCommentsFullPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiProviderDescription)
         {
             if (env.IsDevelopment())
             {
@@ -68,6 +124,17 @@ namespace SmartSchool.WebAPI
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //usar swagger
+            app.UseSwagger()
+                .UseSwaggerUI(options =>
+                {
+                    foreach (var description in apiProviderDescription.ApiVersionDescriptions)
+                    {
+                        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    }
+                    options.RoutePrefix = "";
+                });
 
             //app.UseAuthorization();
 

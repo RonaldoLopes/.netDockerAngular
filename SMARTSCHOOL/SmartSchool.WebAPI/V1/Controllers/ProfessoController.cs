@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
-using SmartSchool.WebAPI.Dto;
+using SmartSchool.WebAPI.V1.Dto;
 using SmartSchool.WebAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace SmartSchool.WebAPI.Controllers
+namespace SmartSchool.WebAPI.V1.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}[controller]")]
     public class ProfessorController : ControllerBase
     {
         private readonly IRepository  _repo;

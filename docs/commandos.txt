@@ -9,3 +9,9 @@ ctrl + shitp + p -> nuget
  dotnet ef migrations add init
  dotnet ef database update
  dotnet watch run
+ Swashbuckle.AspNetCore -> instalar via nugget localhost:5000/swagger/index.html -> localhost:5000/swagger/SmartSchoolAPI/swagger.json
+                            editor.swagger.io
+                        -> Alterar propriedade do projeto pelo visual studio 2019 em build marcar em output path -> XML document file, retirar
+                            o caminho do arquivo e deixar apenas nomeAPI.xml
+Instalar Microsoft.AspNetCore.Mvc.Versioning e Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
+                            

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartSchool.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:SmartSchool.WebAPI.V1.Controllers.AlunoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.#ctor(SmartSchool.WebAPI.Data.IRepository,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="repo"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get">
+            <summary>
+            Método responsável para retornar todos os meus alunos
+            </summary>
+            <return></return>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetRegister">
+            <summary>
+            Método responsável por retornar apenas 1 unico  AlunoDTO
+            </summary>
+            <return></return>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetById(System.Int32)">
+            <summary>
+            Método responsável por retornar apenas um Aluno por ID
+            </summary>
+            <param name="id"></param>
+            <return></return>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V1.Dto.AlunoDto.Id">
+            <summary>
+            Identificador e chave do banco
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V1.Dto.AlunoDto.Matricula">
+            <summary>
+            Chave do Aluno para outros negócios na instituição
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V1.Dto.AlunoDto.Nome">
+            <summary>
+            Nome é o primeiro nome e o Sobrenome do Aluno
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V1.Dto.AlunoDto.Telefone">
+            <summary>
+            Esta idade é o calculo relacionado a data de nascimento do Aluno
+            </summary>
+        </member>
+        <member name="T:SmartSchool.WebAPI.V2.Controllers.AlunoController">
+            <summary>
+            Versão 2 do controlador de alunos
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V2.Controllers.AlunoController.#ctor(SmartSchool.WebAPI.Data.IRepository,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="repo"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V2.Controllers.AlunoController.Get">
+            <summary>
+            Método responsável para retornar todos os meus alunos
+            </summary>
+            <return></return>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V2.Controllers.AlunoController.GetById(System.Int32)">
+            <summary>
+            Método responsável por retornar apenas um Aluno por ID
+            </summary>
+            <param name="id"></param>
+            <return></return>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V2.Dto.AlunoDto.Id">
+            <summary>
+            Identificador e chave do banco
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V2.Dto.AlunoDto.Matricula">
+            <summary>
+            Chave do Aluno para outros negócios na instituição
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V2.Dto.AlunoDto.Nome">
+            <summary>
+            Nome é o primeiro nome e o Sobrenome do Aluno
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.V2.Dto.AlunoDto.Telefone">
+            <summary>
+            Esta idade é o calculo relacionado a data de nascimento do Aluno
+            </summary>
+        </member>
+    </members>
+</doc>
