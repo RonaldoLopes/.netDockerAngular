@@ -4,6 +4,12 @@
         <name>SmartSchool.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:SmartSchool.WebAPI.Helpers.PageList`1">
+            <summary>
+            Classe para paginação
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
         <member name="T:SmartSchool.WebAPI.V1.Controllers.AlunoController">
             <summary>
             
@@ -16,11 +22,12 @@
             <param name="repo"></param>
             <param name="mapper"></param>
         </member>
-        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get">
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get(SmartSchool.WebAPI.Helpers.PageParams)">
             <summary>
             Método responsável para retornar todos os meus alunos
             </summary>
-            <return></return>
+            <param name="pageParams">pageNumber_pageSize</param>
+            <returns>AlunoDTO</returns>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetRegister">
             <summary>

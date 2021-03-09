@@ -14,4 +14,5 @@ ctrl + shitp + p -> nuget
                         -> Alterar propriedade do projeto pelo visual studio 2019 em build marcar em output path -> XML document file, retirar
                             o caminho do arquivo e deixar apenas nomeAPI.xml
 Instalar Microsoft.AspNetCore.Mvc.Versioning e Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
+-> Pesquisar sobre extension c#
                             
