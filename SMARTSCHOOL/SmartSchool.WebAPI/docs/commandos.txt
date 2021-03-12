@@ -15,4 +15,37 @@ ctrl + shitp + p -> nuget
                             o caminho do arquivo e deixar apenas nomeAPI.xml
 Instalar Microsoft.AspNetCore.Mvc.Versioning e Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
 -> Pesquisar sobre extension c#
-                            
+->Docker
+    Imagens 
+            -> Comandos
+                -> docker image ls -> mostra as imagens
+                -> docker image prune -> remove as imagens
+            -> baixar imagens no site(https://hub.docker.com/)
+            -> imagens asp.net.core
+                ->ASP.NET Core Runtime
+                ->copiar comando ou (docker pull mcr.microsoft.com/dotnet/aspnet)
+                ->no vscode
+                    ->no terminal colocar o comando para baixar
+            ->mysql
+                ->docker pull mysql:8.0
+    Containers
+            ->docker container ps -> lista os containers
+            ->criar container
+                ->docker container run --name "nome_container" -it "sua_imagem"
+            ->docker container ps -a -> mostra os container rodando
+            ->pode-se criar uma aplicação diretamente no container
+            ->exit para sair do container
+            ->docker container stop _nomeContainer -> para execução do container
+            ->docker container start _nomeContainer -> inicia execução do container
+            ->docker container rm _nomeContainer -> remove container
+            ->docker container exec -it "nome_container" bash ->entra no container
+    DockerFile -> portar projeto pronto para dentro do docker
+            ->Criar um aquivo no projeto chamado DockerFile
+            ->https://docs.docker.com/engine/examples/dotnetcore/
+        ->Deploy
+            ->docker build -t smartschool .
+            ->docker run -d -p 5000:80 --name smartschool smartschool
+    Mysql docker
+        ->https://hub.docker.com/_/mysql
+        ->docker container run -d --name mysql -p 3307:3307 -e MYSQL_ROOT_PASSWORD=4dm1nR1sc -e bind-address:0.0.0.0 -e MYSQL_USER=root -e MYSQL_PASSWORD=4dm1nR1sc -e MYSQL_ROOT_HOST=% mysql:8.0
+    
