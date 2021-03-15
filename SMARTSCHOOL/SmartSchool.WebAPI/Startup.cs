@@ -26,7 +26,7 @@ namespace SmartSchool.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SmartContext>(
-                context => context.UseMySql(Configuration.GetConnectionString("MysqlConnection"))
+                context => context.UseMySql(Configuration.GetConnectionString("MySqlConnection"))
             );
 
             /*
